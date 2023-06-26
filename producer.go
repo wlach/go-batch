@@ -1,12 +1,12 @@
 package batch
 
 import (
+	log "github.com/wlach/go-batch/logger"
 	"sync/atomic"
 	"time"
-	log "github.com/Deeptiman/go-batch/logger"
 )
 
-var (	
+var (
 	DefaultMaxItems = uint64(100)                     // maximum no of items packed inside a Batch
 	DefaultMaxWait  = time.Duration(30) * time.Second //seconds
 	DefaultBatchNo  = int32(1)
@@ -39,7 +39,6 @@ type BatchProducer struct {
 // NewBatchProducer defines the producer line for creating a Batch. There will be a Watcher
 // channel that receives the incoming BatchItem from the source. The ConsumerFunc works as a
 // callback function to the Consumer line to release the newly created set of BatchItems.
-//
 //
 // Each Batch is registered with a BatchNo that gets created when the Batch itemCounter++ increases
 // to the MaxItems value.

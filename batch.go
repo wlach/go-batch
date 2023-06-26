@@ -1,19 +1,19 @@
 package batch
 
 import (
-	log "github.com/Deeptiman/go-batch/logger"
+	log "github.com/wlach/go-batch/logger"
 	"time"
 )
 
 // Batch struct defines the structure payload for a Batch.
 //
-//	Item: channel that contains the Resources object from the client.
-//	Id: Each item that a client send for the processing marked with Id.
-//	Semaphore: The ReadWrite locks handle by the Semaphore object, it helps to synchronize the batch processing session.
-//	Islocked: Whenever the batch processing session starts, Islocked changes to [true], so it will restrict the concurrent batch processing.
-//  Producer: The BatchItem object send to the Producer for further processing.
-//  Consumer: The Consumer arranges the prepared []BatchItems for the Workerline.
-//  Log: Batch processing library uses "github.com/sirupsen/logrus" as logging tool.
+//		Item: channel that contains the Resources object from the client.
+//		Id: Each item that a client send for the processing marked with Id.
+//		Semaphore: The ReadWrite locks handle by the Semaphore object, it helps to synchronize the batch processing session.
+//		Islocked: Whenever the batch processing session starts, Islocked changes to [true], so it will restrict the concurrent batch processing.
+//	 Producer: The BatchItem object send to the Producer for further processing.
+//	 Consumer: The Consumer arranges the prepared []BatchItems for the Workerline.
+//	 Log: Batch processing library uses "github.com/sirupsen/logrus" as logging tool.
 type Batch struct {
 	Item      chan interface{}
 	Id        int
@@ -21,7 +21,7 @@ type Batch struct {
 	Islocked  bool
 	Producer  *BatchProducer
 	Consumer  *BatchConsumer
-	Log    	  *log.Logger
+	Log       *log.Logger
 }
 
 // NewBatch creates a new Batch object with BatchProducer & BatchConsumer. The BatchOptions
@@ -32,7 +32,7 @@ func NewBatch(opts ...BatchOptions) *Batch {
 		Item: make(chan interface{}),
 		Log:  log.NewLogger(),
 	}
-	
+
 	c := NewBatchConsumer()
 
 	p := NewBatchProducer(c.ConsumerFunc)

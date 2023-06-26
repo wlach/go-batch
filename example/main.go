@@ -3,8 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+
 	log "github.com/sirupsen/logrus"
-	batch "github.com/Deeptiman/go-batch"
+	batch "github.com/wlach/go-batch"
 )
 
 // Resources Structure

@@ -3,7 +3,7 @@ package batch
 import (
 	"time"
 
-	log "github.com/Deeptiman/go-batch/logger"
+	log "github.com/wlach/go-batch/logger"
 )
 
 type BatchOptions func(b *BatchProducer)

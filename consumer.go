@@ -2,7 +2,7 @@ package batch
 
 import (
 	"context"
-	log "github.com/Deeptiman/go-batch/logger"
+	log "github.com/wlach/go-batch/logger"
 	"os"
 	"os/signal"
 	"sync"
@@ -16,13 +16,13 @@ var (
 // BatchConsumer struct defines the Consumer line for the Batch processing. It has the Workerline
 // that manages the concurrent scenarios where a large set of []BatchItems needs to be send to client.
 //
-//	ConsumerCh: It receives the []BatchItems from the Producer line.
-//	BatchWorkerCh: It has set of workers that manages the concurrent work under Workerline [sync.WaitGroup].
-//	Supply: The final chain in the batch processing that sends the []BatchItems to the client.
-//  Workerline: It's WaitGroup that synchronizes the workers to send the []BatchItems to the supply chain.
-//  TerminateCh: To handle the graceful shutdown, this channel will listen to the os.Signal and terminate processing accordingly.
-//  Quit: It's the exit channel for the Consumer to end the processing
-//  Log: Batch processing library uses "github.com/sirupsen/logrus" as logging tool.
+//		ConsumerCh: It receives the []BatchItems from the Producer line.
+//		BatchWorkerCh: It has set of workers that manages the concurrent work under Workerline [sync.WaitGroup].
+//		Supply: The final chain in the batch processing that sends the []BatchItems to the client.
+//	 Workerline: It's WaitGroup that synchronizes the workers to send the []BatchItems to the supply chain.
+//	 TerminateCh: To handle the graceful shutdown, this channel will listen to the os.Signal and terminate processing accordingly.
+//	 Quit: It's the exit channel for the Consumer to end the processing
+//	 Log: Batch processing library uses "github.com/sirupsen/logrus" as logging tool.
 type BatchConsumer struct {
 	ConsumerCh    chan []BatchItems
 	BatchWorkerCh chan []BatchItems
@@ -46,7 +46,6 @@ type BatchSupply struct {
 // stages to release a Batch to the client. The ConsumerCh received the Batch and send it to the
 // Workers channel. Then, the Workerline arranges the worker under a waitGroup to release the Batch
 // to the Supply channel.
-//
 //
 // The BatchSupply has a bidirectional channel that requests a Batch from
 // the Worker channel and receives a Batch via response channel. Also, BatchSupply has a Client
@@ -80,8 +79,8 @@ func NewBatchSupply() *BatchSupply {
 // []BatchItems that gets created fequently in highly concurrent scenarios. Also, starts the
 // ConsumerCh channel listener to the incoming []BatchItems from the Producer line.
 //
-//  signal.Notify(c.TerminateCh, syscall.SIGINT, syscall.SIGTERM)
-//  <-c.TerminateCh
+//	signal.Notify(c.TerminateCh, syscall.SIGINT, syscall.SIGTERM)
+//	<-c.TerminateCh
 //
 // To handle the graceful shutdown, the BatchConsumer supports os.Signal. So, the TerminateCh
 // works as a terminate channel in case of certain os.Signal received [syscall.SIGINT, syscall.SIGTERM].
@@ -116,8 +115,8 @@ func (c *BatchConsumer) ConsumerFunc(items []BatchItems) {
 // This also supports the termination of the Consumer line in case of graceful shutdown or to exit
 // the batch processing forcefully.
 //
-//  <-ctx.Done(): get called during a graceful shutdown scenarios and closes the worker channel
-//  <-c.Quit: Exit the batch processing during a forceful request from the client.
+//	<-ctx.Done(): get called during a graceful shutdown scenarios and closes the worker channel
+//	<-c.Quit: Exit the batch processing during a forceful request from the client.
 func (c *BatchConsumer) ConsumerBatch(ctx context.Context) {
 
 	for {
