@@ -6,6 +6,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 	batch "github.com/wlach/go-batch"
+	batchLog "github.com/wlach/go-batch/logger"
 )
 
 // Resources Structure
@@ -23,9 +24,9 @@ func main() {
 	debugFlag := flag.Bool("d", false, "Debug mode")
 	flag.Parse()
 
-	logLevel := log.InfoLevel
+	logLevel := batchLog.Info
 	if *debugFlag {
-		logLevel = log.DebugLevel
+		logLevel = batchLog.Debug
 	}
 
 	logs := log.New()
